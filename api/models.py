@@ -9,7 +9,7 @@
 # ║ 🚚 IMPORTS
 # ╚════════════════════════════════════════════════════════════╝
 
-from fastapi import UploadFile, File, Request
+from fastapi import UploadFile, File
 
 # ╔════════════════════════════════════════════════════════════╗
 # ║ 🌐 API
@@ -39,12 +39,9 @@ import csv
 @text_predict.post("/predict", response_model=PredictSentiment, tags=["Predict"])
 def predict_text(
     input: TextInput,
-    request: Request,
 ) -> PredictSentiment:
 
-    model = request.app.state.model
-
-    result = predict_sentiment(input.text, model)
+    result = predict_sentiment(input.text)
 
     prediction = int(result["prediction"])
     probability = float(result["probability"])

@@ -4,6 +4,9 @@
 # ║ 🧹CLEANING
 # ╚════════════════════════════════════════════════════════════╝
 import re
+import pickle
+from functools import lru_cache
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -45,20 +48,29 @@ def clean_text(text: str) -> str:
 # ╔════════════════════════════════════════════════════════════╗
 # ║ 🔮 PREDICTION
 # ╚════════════════════════════════════════════════════════════╝
-
-from tf_keras.preprocessing.sequence import pad_sequences
-
 import numpy as np
-import pickle
-
-with open(settings.TOKENIZER_PATH, "rb") as f:
-    tokenizer = pickle.load(f)
 
 MAX_LEN = 200
 
 
-def predict_sentiment(text: str, model) -> dict:
+@lru_cache(maxsize=1)
+def get_model():
+    from tf_keras.models import load_model
 
+    return load_model(settings.MODEL_PATH)
+
+
+@lru_cache(maxsize=1)
+def get_tokenizer():
+    with open(settings.TOKENIZER_PATH, "rb") as f:
+        return pickle.load(f)
+
+
+def predict_sentiment(text: str) -> dict:
+    from tf_keras.preprocessing.sequence import pad_sequences
+
+    model = get_model()
+    tokenizer = get_tokenizer()
     new_text_clean = [clean_text(text)]
     new_text_seq = tokenizer.texts_to_sequences(new_text_clean)
     new_text_pad = pad_sequences(
