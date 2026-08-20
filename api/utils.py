@@ -57,7 +57,7 @@ MAX_LEN = 200
 def get_model():
     from tf_keras.models import load_model
 
-    return load_model(settings.MODEL_PATH)
+    return load_model(settings.MODEL_PATH, compile=False)
 
 
 @lru_cache(maxsize=1)

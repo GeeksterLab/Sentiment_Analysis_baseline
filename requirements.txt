@@ -8,5 +8,5 @@ pydantic>=2.8
 pydantic-settings>=2.4
 python-jose>=3.3
 python-multipart>=0.0.9
-tensorflow>=2.16,<2.18
-tf-keras>=2.16,<2.18
+tensorflow>=2.21,<2.22
+tf-keras>=2.21,<2.22
