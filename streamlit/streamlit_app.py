@@ -1,6 +1,7 @@
 from gdown.download import download
 
 import os
+import textwrap
 
 import pandas as pd
 import requests
@@ -515,7 +516,9 @@ with prediction_tab:
         st.caption(f"{chars}/2000 characters")
         st.warning(
             "⚠️ Model limitation: the CNN may struggle with negation handling "
-            "(e.g. 'not good', 'not happy'). Interpret these predictions with caution."
+            "(e.g. 'not good', 'not happy'). In manual tests, predictions appear "
+            "more stable on French reviews than short English sentences. "
+            "Cross-language robustness remains an improvement area."
         )
 
         classify = st.button(
@@ -578,13 +581,12 @@ with prediction_tab:
                     confidence
                 )
 
-                st.markdown(
+                result_html = textwrap.dedent(
                     f"""
                     <div class="result-card {meta["css_class"]}">
                         <div class="result-emoji">{meta["emoji"]}</div>
                         <div class="result-label">{label}</div>
                         <div class="result-subtitle">{meta["subtitle"]}</div>
-
                         <div class="confidence {confidence_class}">
                             {confidence_emoji}
                             {confidence_label}
@@ -592,9 +594,9 @@ with prediction_tab:
                             {confidence:.1%}
                         </div>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+                    """
+                ).strip()
+                st.markdown(result_html, unsafe_allow_html=True)
 
                 st.progress(min(max(confidence, 0.0), 1.0))
 
