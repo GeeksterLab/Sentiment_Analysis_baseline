@@ -1,17 +1,18 @@
 # Amazon Reviews Sentiment Analysis
 
+![Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)
+[![Click Here](https://img.shields.io/badge/Click%20Here-blue?style=for-the-badge)](https://amazonreviews-sentimentanalysis.streamlit.app/)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge\&logo=python\&logoColor=ffdd54)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571.svg?style=for-the-badge\&logo=fastapi)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge\&logo=tensorflow\&logoColor=white)
 ![Keras](https://img.shields.io/badge/Keras-D00000?style=for-the-badge\&logo=keras\&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge\&logo=scikit-learn\&logoColor=white)
-![NumPy](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge\&logo=numpy\&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458.svg?style=for-the-badge\&logo=pandas\&logoColor=white)
 ![NLTK](https://img.shields.io/badge/NLTK-154f3c?style=for-the-badge)
 ![Gensim](https://img.shields.io/badge/Gensim-00A98F?style=for-the-badge)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge\&logo=openai\&logoColor=white)
-![HuggingFace](https://img.shields.io/badge/Sentence%20Transformers-FFD21E?style=for-the-badge\&logo=huggingface\&logoColor=black)
-![Streamlit](https://img.shields.io/badge/Streamlit-coming%20soon-FE4B4B?style=for-the-badge\&logo=streamlit\&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
+![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
 ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge\&logo=jupyter\&logoColor=white)
 
 Projet NLP de **classification de sentiments sur des avis Amazon**.
@@ -27,7 +28,7 @@ Le projet compare plusieurs approches de classification :
 * un CNN utilisant une représentation basée sur la **tokenization Keras** ;
 * un CNN utilisant des embeddings **Word2Vec** ;
 * un **LLM** utilisé comme modèle de comparaison ;
-* des embeddings **Sentence Transformers** pour explorer la similarité et la recherche sémantique.
+<!-- * des embeddings **Sentence Transformers** pour explorer la similarité et la recherche sémantique. -->
 
 Une API **FastAPI** permet ensuite d'exposer le modèle sélectionné pour effectuer des prédictions sur de nouveaux textes.
 
@@ -47,7 +48,7 @@ Le projet cherche à explorer plusieurs problématiques classiques du NLP :
 * comparaison de différentes représentations du texte ;
 * comparaison entre un modèle Deep Learning local et un LLM ;
 * exposition d'un modèle NLP via une API ;
-* recherche sémantique à partir d'embeddings.
+<!-- * recherche sémantique à partir d'embeddings. -->
 
 ---
 
@@ -490,7 +491,8 @@ L'objectif est de rendre le modèle testable sans avoir besoin d'utiliser direct
 ├── notebooks/
 │   └── notebook.ipynb               # EDA, preprocessing, training et comparaison
 │
-└── streamlit/                       # Interface utilisateur 
+└── streamlit/
+│   ├── streamlit_app.py             # Interface utilisateur
 ```
 
 ---
@@ -538,7 +540,7 @@ Ces variables sont principalement nécessaires pour les expérimentations LLM du
 L'API utilise actuellement :
 
 ```text
-models/cnn_tokenization.keras
+models/full_cnn_tokenization.keras
 ```
 
 Il s'agit de la **Baseline A — CNN + Tokenization**, retenue face à la baseline Word2Vec après comparaison des performances de validation.
@@ -598,9 +600,9 @@ scikit-learn
 NLTK
 Gensim
 Word2Vec
-Sentence Transformers
 NumPy
 Pandas
+<!-- Sentence Transformers -->
 ```
 
 ### API
@@ -621,7 +623,7 @@ python-dotenv
 ### Interface
 
 ```text
-Streamlit — coming soon
+Streamlit
 ```
 
 ### Experimentation
@@ -629,6 +631,7 @@ Streamlit — coming soon
 ```text
 Jupyter Notebook
 Matplotlib
+Seaborn
 ```
 
 ---
