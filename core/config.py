@@ -25,6 +25,8 @@ class Settings(BaseSettings):
 
     BASE_DIR: ClassVar[Path] = Path(__file__).resolve().parents[1]
     BASELINE_PATH: ClassVar[Path] = BASE_DIR / "models" / "cnn_tokenization.keras"
+    MODEL_PATH: ClassVar[Path] = BASE_DIR / "models" / "full_cnn_tokenization.keras"
+    TOKENIZER_PATH: ClassVar[Path] = BASE_DIR / "models" / "tokenizer_full.pkl"
     REVIEWS_DATA_URL: str = ""
 
     # ═════════════════════ CONFIG ═════════════════════

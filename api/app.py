@@ -18,7 +18,7 @@ from tf_keras.models import load_model
 # ═════════════════════ MODEL LOADING ═════════════════════
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.model = load_model("../models/full_cnn_tokenization.keras")
+    app.state.model = load_model(settings.MODEL_PATH)
     yield
 
 

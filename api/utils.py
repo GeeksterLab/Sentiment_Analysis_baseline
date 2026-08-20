@@ -7,10 +7,19 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from core.config import settings
 
-nltk.download("stopwords")
-nltk.download("punkt")
-nltk.download("punkt_tab")
+NLTK_PACKAGES = {
+    "stopwords": "corpora/stopwords",
+    "punkt": "tokenizers/punkt",
+    "punkt_tab": "tokenizers/punkt_tab",
+}
+
+for package, resource_path in NLTK_PACKAGES.items():
+    try:
+        nltk.data.find(resource_path)
+    except LookupError:
+        nltk.download(package, quiet=True)
 
 
 def clean_text(text: str) -> str:
@@ -42,7 +51,7 @@ from tf_keras.preprocessing.sequence import pad_sequences
 import numpy as np
 import pickle
 
-with open("../models/tokenizer_full.pkl", "rb") as f:
+with open(settings.TOKENIZER_PATH, "rb") as f:
     tokenizer = pickle.load(f)
 
 MAX_LEN = 200
@@ -60,7 +69,7 @@ def predict_sentiment(text: str, model) -> dict:
     )
 
     new_prob = model.predict(new_text_pad, verbose=0)[0]
-    new_pred = int(np.argmax(new_prob, axis=1))
+    new_pred = int(np.argmax(new_prob))
     confiance = float(new_prob[new_pred])
 
     return dict(
