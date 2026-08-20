@@ -196,6 +196,15 @@ st.markdown(
             border-radius: 18px;
         }
 
+        div[data-testid="stMetricLabel"] p {
+            color: #eef3ff !important;
+            font-weight: 750 !important;
+        }
+
+        div[data-testid="stMetricValue"] {
+            color: #dfe7ff !important;
+        }
+
         div[data-baseweb="tab-list"] {
             gap: 0.45rem;
         }
@@ -211,6 +220,27 @@ st.markdown(
             border-radius: 14px;
             min-height: 3rem;
             font-weight: 750;
+            border: 1px solid rgba(139, 166, 255, 0.42);
+        }
+
+        .stButton > button[kind="primary"] {
+            background: #7c5cff;
+            color: #ffffff;
+            border-color: #9f8cff;
+        }
+
+        .stButton > button[kind="primary"]:hover {
+            background: #8e73ff;
+            border-color: #c2b7ff;
+            color: #ffffff;
+        }
+
+        .stButton > button:disabled,
+        .stButton > button[disabled] {
+            background: #27314d !important;
+            color: #c9d4ef !important;
+            border: 1px solid rgba(139, 166, 255, 0.24) !important;
+            opacity: 1 !important;
         }
 
         .small-note,
@@ -262,6 +292,16 @@ st.markdown(
             background: #151a2a !important;
             color: #f5f7ff !important;
             border: 1px solid rgba(255,255,255,0.12) !important;
+        }
+
+        .stTextArea textarea::placeholder {
+            color: #98a3bd !important;
+            opacity: 1 !important;
+        }
+
+        .stTextArea textarea:focus {
+            border-color: rgba(159, 140, 255, 0.9) !important;
+            box-shadow: 0 0 0 1px rgba(159, 140, 255, 0.55) !important;
         }
     </style>
     """,
@@ -331,7 +371,7 @@ def predict_sentiment(text: str) -> dict:
     response = requests.post(
         f"{API_URL}/predict",
         json={"text": text},
-        timeout=30,
+        timeout=90,
     )
     response.raise_for_status()
     return response.json()
@@ -571,9 +611,19 @@ with prediction_tab:
                     )
 
             except requests.HTTPError as exc:
-                st.error("The API returned an error while classifying the text.")
+                status_code = exc.response.status_code if exc.response else None
+                if status_code == 503:
+                    st.error(
+                        "The API is online, but prediction is temporarily unavailable. "
+                        "The Cloud Run service likely needs more memory for TensorFlow."
+                    )
+                else:
+                    st.error("The API returned an error while classifying the text.")
                 with st.expander("Technical details"):
-                    st.code(str(exc))
+                    details = str(exc)
+                    if exc.response is not None:
+                        details += f"\n\nResponse body:\n{exc.response.text}"
+                    st.code(details)
 
             except requests.RequestException as exc:
                 st.error("Unable to contact the prediction API.")
