@@ -18,7 +18,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+DEFAULT_API_URL = "https://sentiment-analysis-baseline-44767566354.europe-west1.run.app"
+API_URL = st.secrets.get("API_URL", os.getenv("API_URL", DEFAULT_API_URL))
 REVIEWS_DATA_URL = os.getenv(
     "REVIEWS_DATA_URL",
     "https://drive.google.com/file/d/1m9nG79MoPaIf6ubuin8rX3Y9-YsUpjhx/view?usp=share_link",
