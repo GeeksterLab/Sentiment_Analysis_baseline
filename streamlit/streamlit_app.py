@@ -516,9 +516,12 @@ with prediction_tab:
         st.caption(f"{chars}/2000 characters")
         st.warning(
             "⚠️ Model limitation: the CNN may struggle with negation handling "
-            "(e.g. 'not good', 'not happy'). In manual tests, predictions appear "
-            "more stable on French reviews than short English sentences. "
-            "Cross-language robustness remains an improvement area."
+            '(e.g. "not good", "not happy"). Predictions are most reliable on '
+            "English Amazon-style reviews. Short French sentences may lose "
+            "context after cleaning and tokenization, especially when words "
+            "are removed as stopwords or mapped as unknown vocabulary. "
+            "Cross-language robustness remains an improvement area, so "
+            "predictions may be uncertain or incorrect."
         )
 
         classify = st.button(
