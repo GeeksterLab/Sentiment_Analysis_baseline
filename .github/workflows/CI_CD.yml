@@ -34,8 +34,7 @@ env:
   SERVICE_NAME: sentiment-analysis-baseline
   GAR_REPOSITORY: cloud-run
   IMAGE_NAME: nlp-api
-  RUNTIME_SERVICE_ACCOUNT: cloud-run-runtime@sentiment-analysis-
-    baseline.iam.gserviceaccount.com
+  RUNTIME_SERVICE_ACCOUNT: cloud-run-runtime@sentiment-analysis-baseline.iam.gserviceaccount.com
 
 jobs:
 
