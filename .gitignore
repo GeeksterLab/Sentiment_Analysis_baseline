@@ -17,3 +17,5 @@ memo.md
 data/**/*.csv
 data/**/*.sqlite
 data/**/hashes.txt
+
+setup-gcp.sh
